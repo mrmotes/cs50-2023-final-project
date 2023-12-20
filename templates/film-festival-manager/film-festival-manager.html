@@ -1,0 +1,40 @@
+{% extends "film-festival-manager/base.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+<div class="container-sm">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-8">
+            <div class="row">
+                <h1>Welcome to the Film Festival Manager!</h1>
+                <p>This section of the application is designed for administrative actions related to all your film festival needs.</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <a href="{{ url_for('submissions.list_submissions') }}">Submissions</a> - Create, edit, and view film submissions
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{{ url_for('evaluations.evaluations') }}">Evaluations</a> - View scores and film evaluations against submissions
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{{ url_for('criteria.list_evaluation_criteria') }}">Criteria</a> - Create and edit the evaluation criteria and assign them to film categories
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{{ url_for('events.list_events') }}">Events</a> - Create and edit film festival events
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{{ url_for('categories.list_categories') }}">Categories</a> - Create and edit film submission categories
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{{ url_for('users.list_users') }}">Users</a> - View and edit the available users
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}

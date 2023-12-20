@@ -1,0 +1,24 @@
+{% extends "film-evaluator/base.html" %}
+
+{% block main %}
+<div class="container-sm">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-8">
+            <div class="row">
+                <h1>Welcome to the Film Evaluator!</h1>
+                <p>This section of the application is designed for users to evaluate film submissions.</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <a href="{{ url_for('evaluations.pending_evaluation') }}">Pending Evaluation</a> - View film submissions for your categories that have not been evaluated
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{{ url_for('evaluations.evaluations') }}">Evaluations</a> - View your submitted evaluations
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}

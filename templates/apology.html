@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Apology
+{% endblock %}
+
+{% block header %}
+<nav class="navbar navbar-expand-lg px-5">
+    
+</nav>
+{% endblock %}
+
+{% block main %}
+<div class="container-sm col-md-3 offset-md-4">
+    <img alt="{{ top }}" class="border img-fluid" src="http://memegen.link/custom/{{ top | urlencode }}/{{ bottom | urlencode }}.jpg?alt=https://media.giphy.com/media/ISOckXUybVfQ4/giphy.gif&width=400" title="{{ top }}">
+</div>
+{% endblock %}

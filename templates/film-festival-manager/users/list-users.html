@@ -1,0 +1,57 @@
+{% extends "film-festival-manager/base.html" %}
+
+{% block title %}
+    Users
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <div class="row gy-5">
+        <div class="col"></div>
+        <div class="col-10">
+            <div class="row">
+                <h1>Users</h1>
+            </div>
+            <div class="row">
+                <table class="table">
+                    {% for user in users %}
+                        {% if loop.index == 1 %}
+                            <tr>
+                                {% for value in user %}
+                                    <th scope="col">{{ value }}</th>
+                                {% endfor %}
+                                    <th scope="col">Actions</th>
+                            </tr>
+                            <tr>
+                                {% for value in user %}
+                                    <td>{{ user[value] }}</td>
+                                {% endfor %}
+                                <td>
+                                    <form action="{{ url_for('users.update_user') }}" method="get">
+                                        <input type="hidden" name="user_id" value="{{ user['ID'] }}">
+                                        <button type="submit" class="btn btn-secondary btn-sm">Edit</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                {% for value in user %}
+                                    <td>{{ user[value] }}</td>
+                                {% endfor %}
+                                <td>
+                                    <form action="{{ url_for('users.update_user') }}" method="get">
+                                        <input type="hidden" name="user_id" value="{{ user['ID'] }}">
+                                        <button type="submit" class="btn btn-secondary btn-sm">Edit</button>
+                                    </form>
+                                </td>
+                            </tr>
+
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}

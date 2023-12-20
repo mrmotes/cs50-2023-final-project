@@ -1,0 +1,51 @@
+{% extends "film-festival-manager/base.html" %}
+{% block title %}
+    Create Category
+{% endblock %}
+
+{% block main %}
+<div class="container col-md-3">
+    <div class="row">
+        <h1>Create Category</h1>
+    </div>
+
+    <div class="row">
+        <form class="row g-3" action="{{ url_for('categories.create_category') }}" method="post">
+            <div class="col-md-10">
+                <label class="form-label">Category Name</label>
+                <input autocomplete="off" autofocus class="form-control" name="category-name" type="text" required>
+            </div>
+            <div class="col-md-10">
+                <label class="form-label">Event</label>
+                <select class="form-select" name="category-event" required>
+                    {% for event in events %}
+                        {% if event.status != "Active" %}
+                            <option value="{{ event.id }}" disabled>{{ event.name }}</option>
+                        {% else %}
+                            <option value="{{ event.id }}">{{ event.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-10">
+                <label class="form-label">Status</label>
+                <select class="form-select" name="category-status" required>
+                    {% for status in statuses %}
+                        <option value="{{ status }}">{{ status }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <label class="form-label">Evaluation Criteria</label>
+                {% for value in evaluation_criteria %}
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="criteria-switch" name="{{ value.id }}">
+                        <label class="form-check-label" for="category-switch">{{ value["name"] }}</label>
+                    </div>
+                {% endfor %}
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

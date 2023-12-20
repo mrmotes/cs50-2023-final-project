@@ -1,0 +1,70 @@
+{% extends "film-festival-manager/base.html" %}
+
+{% block title %}
+    Evaluations
+{% endblock %}
+
+{% block main %}
+<div class="container-sm">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-10">
+            <div class="row">
+                <h1>Evaluations</h1>
+            </div>
+            <div class="row">
+                <table class="table">
+                    {% for evaluation, score in evaluation_data|zip(scores) %}
+                        {% if loop.index == 1 %}
+                            <tr>
+                                {% for value in evaluation %}
+                                    <th>{{ value }}</th>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                {% for value in evaluation %}
+                                    {% if value == 'Evaluation' %}
+                                    <td>
+                                        {% for criteria in score %}
+                                            {% if score[criteria] == 1 %}
+                                                <span class="badge rounded-pill text-bg-danger">{{ criteria }}: {{ score[criteria] }}</span>
+                                            {% elif score[criteria] == 5 %}
+                                                <span class="badge rounded-pill text-bg-success">{{ criteria }}: {{ score[criteria] }}</span>
+                                            {% else %}
+                                                <span class="badge rounded-pill text-bg-secondary">{{ criteria }}: {{ score[criteria] }}</span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    {% else %}
+                                        <td>{{ evaluation[value] }}</td>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                        {% else %}
+                            <tr>
+                                {% for value in evaluation %}
+                                    {% if value == 'Evaluation' %}
+                                    <td>
+                                        {% for criteria in score %}
+                                            {% if score[criteria] == 1 %}
+                                                <span class="badge rounded-pill text-bg-danger">{{ criteria }}: {{ score[criteria] }}</span>
+                                            {% elif score[criteria] == 5 %}
+                                                <span class="badge rounded-pill text-bg-success">{{ criteria }}: {{ score[criteria] }}</span>
+                                            {% else %}
+                                                <span class="badge rounded-pill text-bg-secondary">{{ criteria }}: {{ score[criteria] }}</span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    {% else %}
+                                        <td>{{ evaluation[value] }}</td>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    <div class="col"></div>
+</div>
+{% endblock %}

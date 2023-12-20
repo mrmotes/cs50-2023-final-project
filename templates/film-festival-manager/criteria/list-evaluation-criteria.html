@@ -1,0 +1,60 @@
+{% extends "film-festival-manager/base.html" %}
+
+{% block title %}
+    Evaluation Criteria
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-10">
+            <div class="row">
+                <h1>Evaluation Criteria</h1>
+            </div>
+            <div class="row">
+                <table class="table">
+                    {% for row in criteria %}
+                        {% if loop.index == 1 %}
+                            <tr>
+                                {% for value in row %}
+                                    <th scope="col">{{ value }}</th>
+                                {% endfor %}
+                                    <th scope="col">Actions</th>
+                            </tr>
+                            <tr>
+                                {% for value in row %}
+                                    <td>{{ row[value] }}</td>
+                                {% endfor %}
+                                <td>
+                                    <form action="{{ url_for('criteria.update_evaluation_criteria') }}" method="get">
+                                        <input type="hidden" name="criteria_id" value="{{ row['ID'] }}">
+                                        <button type="submit" class="btn btn-secondary btn-sm">Edit</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                {% for value in row %}
+                                    <td>{{ row[value] }}</td>
+                                {% endfor %}
+                                <td>
+                                    <form action="{{ url_for('criteria.update_evaluation_criteria') }}" method="get">
+                                        <input type="hidden" name="criteria_id" value="{{ row['ID'] }}">
+                                        <button type="submit" class="btn btn-secondary btn-sm">Edit</button>
+                                    </form>
+                                </td>
+                            </tr>
+
+                        {% endif %}
+                    {% endfor %}
+                </table>
+                <form action="{{ url_for('criteria.create_evaluation_criteria') }}" method="get">
+                    <button type="submit" class="btn btn-secondary">Create Criteria</button>
+                </form>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}

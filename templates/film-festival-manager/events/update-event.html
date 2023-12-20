@@ -1,0 +1,36 @@
+{% extends "film-festival-manager/base.html" %}
+{% block title %}
+    Update Event
+{% endblock %}
+
+{% block main %}
+<div class="container col-md-3 offset-md-4">
+    <div class="row">
+        <h1>Update {{ event.name }}</h1>
+    </div>
+    <div class="row">
+        <form class="row g-3" action="{{ url_for('events.update_event_post') }}" method="post">
+            <div class="col-md-10">
+                <label class="form-label">Event Name</label>
+                <input autocomplete="off" class="form-control" name="updated-event-name" type="text" value="{{ event.name }}" required>
+            </div>
+
+            <div class="col-10">
+                <label class="form-label">Event Status</label>
+                <select class="form-select" name="updated-event-status" required>
+                    {% for status in statuses %}
+                        {% if status == event.status %}
+                            <option value="{{ status }}" selected>{{ status }}</option>
+                        {% else %}
+                            <option value="{{ status }}">{{ status }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-12">
+                <button type="submit" value="{{ event.id }}" name="updated-event-id" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

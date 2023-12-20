@@ -1,0 +1,33 @@
+{% extends "film-festival-manager/base.html" %}
+{% block title %}
+    Create Event
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <div class="row">
+        <h1>Create Event</h1>
+    </div>
+
+    <div class="row">
+        <form action="{{ url_for('events.create_event') }}" class="row g-3" method="post">
+            <div class="col-10">
+                <label class="form-label">Event Name</label>
+                <input autocomplete="off" autofocus class="form-control" name="event-name" placeholder="Event Name" type="text" required>
+            </div>
+            <div class="col-2">
+                <label class="form-label">Status</label>
+                <select class="form-select" name="event-status" required>
+                    {% for status in statuses %}
+                        <option value="{{ status }}">{{ status }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

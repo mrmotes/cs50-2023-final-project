@@ -1,0 +1,90 @@
+{% extends "film-festival-manager/base.html" %}
+
+{% block title %}
+    Update {{ submission["title_original_language"] }}
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3>{{ submission["title_original_language"] }}</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <form action="{{ url_for('submissions.update_submission_post') }}" class="row g-3" method="post">
+            <div class="col-md-6">
+                <label class="form-label">Title (Original Language)</label>
+                <input autocomplete="off" class="form-control" name="updated-title-original-language" type="text" value="{{ submission.title_original_language }}" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Title (English Language)</label>
+                <input autocomplete="off" class="form-control" name="updated-title-english-language" type="text" value="{{ submission.title_english_language }}">
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Synopsis</label>
+                <textarea class="form-control" rows="4" name="updated-synopsis" value="{{ submission.synopsis }}" required>{{ submission.synopsis }}</textarea>
+            </div>
+            <div class="col-4">
+                <label class="form-label">Event</label>
+                <select class="form-select" name="updated-event" required>
+                    {% for event in events %}
+                        {% if event["id"] == submission["event_id"] %}
+                            <option value="{{ event.id }}" selected>{{ event["name"] }}</option>
+                        {% else %}
+                            <option value="{{ event.id }}">{{ event["name"] }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-4">
+                <label class="form-label">Submission Category</label>
+                <select class="form-select" name="updated-category" required>
+                    {% for category in categories %}
+                        {% if category["id"] == submission["category_id"] %}
+                            <option value="{{ category.id }}" selected>{{ category["name"] }}</option>
+                        {% else %}
+                            <option value="{{ category.id }}">{{ category["name"] }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Country of Production</label>
+                <input autocomplete="off"  class="form-control"name="updated-country-of-production" type="text" value="{{ submission.country_of_production }}" required>
+            </div>
+            <div class="col-md-6">
+                <label aria-describedby="submission-url-help" class="form-label">Submission URL</label>
+                <input autocomplete="off" class="form-control" name="updated-url" type="text" value="{{ submission.url }}" required>
+                <div id="submission-url-help" class="form-text">Streamable and downloadable link to your film submission</div>
+            </div>
+            <div class="col-md-2">
+                <label aria-describedby="submission-password-help" class="form-label">Submission Password</label>
+                <input autocomplete="off" class="form-control" name="updated-password" type="text" value="{{ submission.password }}" required>
+                <div id="submission-password-help" class="form-text">Optional</div>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Duration</label>
+                <input aria-describedby="duration-help" autocomplete="off" class="form-control"name="updated-duration" type="text" value="{{ submission.duration }}" required>
+                <div id="duration-help" class="form-text">hh:mm:ss</div>
+            </div>
+            <div class="col-2">
+                <label class="form-label">Status</label>
+                <select class="form-select" name="updated-status" required>
+                    {% for status in statuses %}
+                        {% if status == submission["status"] %}
+                            <option value="{{ status }}" selected>{{ status }}</option>
+                        {% else %}
+                            <option value="{{ status }}">{{ status }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-12">
+                <button type="submit" value="{{ submission.id }}" name="updated-submission" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

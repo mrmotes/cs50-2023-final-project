@@ -1,0 +1,60 @@
+{% extends "film-festival-manager/base.html" %}
+
+{% block title %}
+    Events
+{% endblock %}
+
+{% block main %}
+<div class="container-sm">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-10">
+            <div class="row">
+                <h1>Events</h1>
+            </div>
+            <div class="row">
+                <table class="table">
+                    {% for event in events %}
+                        {% if loop.index == 1 %}
+                            <tr>
+                                {% for value in event %}
+                                    <th scope="col">{{ value }}</th>
+                                {% endfor %}
+                                    <th scope="col">Actions</th>
+                            </tr>
+                            <tr>
+                                {% for value in event %}
+                                    <td>{{ event[value] }}</td>
+                                {% endfor %}
+                                <td>
+                                    <form action="{{ url_for('events.update_event') }}" method="get">
+                                        <input type="hidden" name="event_id" value="{{ event['ID'] }}">
+                                        <button type="submit" class="btn btn-secondary btn-sm">Edit</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                {% for value in event %}
+                                    <td>{{ event[value] }}</td>
+                                {% endfor %}
+                                <td>
+                                    <form action="{{ url_for('events.update_event') }}" method="get">
+                                        <input type="hidden" name="event_id" value="{{ event['ID'] }}">
+                                        <button type="submit" class="btn btn-secondary btn-sm">Edit</button>
+                                    </form>
+                                </td>
+                            </tr>
+
+                        {% endif %}
+                    {% endfor %}
+                </table>
+                <form action="{{ url_for('events.create_event') }}" method="get">
+                    <button type="submit" class="btn btn-secondary">Create Event</button>
+                </form>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}

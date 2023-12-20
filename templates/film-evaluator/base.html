@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}
+    Film Evaluator
+{% endblock %}
+
+
+{% block header %}
+<nav class="navbar navbar-expand-lg px-5">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" fill="currentColor" class="d-inline-block align-text-top" viewBox="0 0 16 16">
+                <path d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm4 0v6h8V1zm8 8H4v6h8zM1 1v2h2V1zm2 3H1v2h2zM1 7v2h2V7zm2 3H1v2h2zm-2 3v2h2v-2zM15 1h-2v2h2zm-2 3v2h2V4zm2 3h-2v2h2zm-2 3v2h2v-2zm2 3h-2v2h2z"/>
+            </svg>
+            Film Evaluator
+        </a>
+        <ul class="navbar-nav">
+            {% if not session["user_id"] %}
+            <li class="nav-item">
+                {% if request.endpoint == 'login' %}
+                <a class="nav-link" href="/register">Register</a>
+                {% else %}
+                <a class="nav-link" href="/login">Log In</a>
+                {% endif %}
+            </li>
+            {% else %}
+                {% for href, name in [(url_for('evaluations.pending_evaluation'), 'Pending Evaluations'), (url_for('evaluations.evaluations'), 'Completed Evaluations'), ('/logout', 'Log Out')] %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ href }}">{{ name }}</a>
+                    </li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+<div></div>
+{% endblock %}
+
+{% block main %}{% endblock %}

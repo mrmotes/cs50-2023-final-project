@@ -1,0 +1,63 @@
+{% extends "film-festival-manager/base.html" %}
+
+{% block title %}
+    Update {{ user["username"] }}
+{% endblock %}
+
+{% block main %}
+<div class="container col-md-3 offset-md-4">
+    <div class="row">
+        <h3>{{ user["username"] }}</h3>
+    </div>
+
+    <div class="row">
+        <form action="{{ url_for('users.update_user_post') }}" class="row g-3" method="post">
+            <div class="col-md-10">
+                <label class="form-label">User Name</label>
+                <input autocomplete="off" class="form-control" name="updated-user-name" type="text" value="{{ user.username }}" required>
+            </div>
+            <div class="col-10">
+                <label class="form-label">User Status</label>
+                <select class="form-select" name="updated-user-status" required>
+                    {% for status in statuses %}
+                        {% if status == user["status"] %}
+                            <option value="{{ status }}" selected>{{ status }}</option>
+                        {% else %}
+                            <option value="{{ status }}">{{ status }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-10">
+                <label class="form-label">User Role</label>
+                <select class="form-select" name="updated-user-role" required>
+                    {% for role in roles %}
+                        {% if role == user["type"] %}
+                            <option value="{{ role }}" selected>{{ role }}</option>
+                        {% else %}
+                            <option value="{{ role }}">{{ role }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <label class="form-label">User Categories</label>
+                {% for category in categories %}
+                    {% if category["active_for_user"] %}
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" checked role="switch" id="category-switch" name="{{ category.id }}">
+                            <label class="form-check-label" for="category-switch">{{ category["name"] }}</label>
+                        </div>
+                    {% else %}
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="category-switch" name="{{ category.id }}">
+                            <label class="form-check-label" for="category-switch">{{ category["name"] }}</label>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            <div class="col-12">
+                <button type="submit" value="{{ user.id }}" name="updated-user-id" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

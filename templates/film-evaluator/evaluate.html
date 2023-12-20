@@ -1,0 +1,45 @@
+{% extends "film-evaluator/base.html" %}
+
+{% block title %}
+    Evaluation: {{ submission.title }}
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div class="row">
+        <div class="col"></div>
+        <div class="col-8">
+            <div class="row">
+                <h1>{{ submission.title }}</h1>
+            </div>
+            <div class="row-pb-5">
+                <iframe width="560" height="315" src="{{ embed_link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div class="row-md-3">
+                <h2>Evaluation</h2>
+                <form class="row g-3" action="{{ url_for('evaluations.create_evaluation_post') }}" method="post">
+                    {% for row in criteria %}
+                        <div class="col-3">
+                            <label class="form-label">{{ row.name }}</label>
+                            <select autocomplete="off"  class="form-control" name="{{ row.name }}" required>
+                                <option value="" selected disabled>Select a rating...</option>
+                                {% for value in criteria_options %}
+                                    <option value="{{ value }}">{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                            <div id="description" class="form-text">{{ row.description }}</div>
+                        </div>
+                    {% endfor %}
+                    <div class="col-12">
+                        <label class="form-label">Comments</label>
+                        <textarea class="form-control" rows="4" name="additional-notes"></textarea>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary" value="{{ submission.id }}" name="submission-id">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+{% endblock %}
